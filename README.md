@@ -23,7 +23,6 @@ This improves accuracy via the **Principle of Error Reduction**.
 
 ## ⚙️ Workflow
 
-```mermaid
 graph TD;
     A[UCI Dataset] --> B[RF-UCI Model];
     C[Framingham Dataset] --> D[RF-FRAM Model];
@@ -93,3 +92,4 @@ Enter patient details → Get risk probability + final prediction.
 Aryan Chandel – Project Lead 😉
 
 Copyright (c) 2025 Aryan Chandel
+
