@@ -1,6 +1,8 @@
 # 🫀 Meta-Model for Cardiovascular Risk Prediction  
 
-![Project is live at](https://heart-disease-risk-prediction-using-meta-p8vw.onrender.com)
+
+The project is live here: [Heart Disease Risk Prediction App](https://heart-disease-risk-prediction-using-meta-p8vw.onrender.com)
+
 
 
 ![Python](https://img.shields.io/badge/Python-3.9+-blue?logo=python)  
@@ -98,6 +100,7 @@ Enter patient details → Get risk probability + final prediction.
 Aryan Chandel – Project Lead 😉
 
 Copyright (c) 2025 Aryan Chandel
+
 
 
 
