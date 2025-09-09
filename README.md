@@ -1,100 +1,50 @@
-🫀 Meta-Model for Cardiovascular Risk Prediction
-📌 Project Overview
+# 🫀 Meta-Model for Cardiovascular Risk Prediction  
 
-This project builds a stacked meta-model for predicting cardiovascular disease risk by combining two independent Random Forest classifiers trained on:
+![Python](https://img.shields.io/badge/Python-3.9+-blue?logo=python)  
+![ML](https://img.shields.io/badge/Machine%20Learning-Stacking%20Ensemble-green)  
+![Flask](https://img.shields.io/badge/Flask-Web%20App-black?logo=flask)  
+![Status](https://img.shields.io/badge/Status-Active-success)  
+![Accuracy](https://img.shields.io/badge/UCI_RF-93.3%25-brightgreen)  
+![Accuracy](https://img.shields.io/badge/Framingham_RF-85.0%25-yellow)  
+![Meta-Model](https://img.shields.io/badge/Meta_Model-79.8%25-orange)  
 
-UCI Heart Disease Dataset (RF-UCI)
+---
 
-Framingham Heart Study Dataset (RF-FRAM)
+## 📌 Overview
+This project builds a **stacked meta-model** to predict cardiovascular disease risk by combining predictions from two independent Random Forest models trained on:  
 
-The outputs (probabilities) of these two models are then combined using a Meta-Model (Logistic Regression, Random Forest, or LightGBM).
-This approach reduces error by leveraging the principle of error reduction from independent datasets.
+- 📂 **UCI Heart Disease Dataset**  
+- 📂 **Framingham Heart Study Dataset**  
 
-⚙️ Workflow
+The meta-model takes probabilities from both models and produces a **final prediction** using Logistic Regression / Random Forest / LightGBM.  
+This improves accuracy via the **Principle of Error Reduction**.  
 
-Data Preparation
+---
 
-UCI Heart dataset → Features + Labels
+## ⚙️ Workflow
 
-Framingham dataset → Features + Labels
+```mermaid
+graph TD;
+    A[UCI Dataset] --> B[RF-UCI Model];
+    C[Framingham Dataset] --> D[RF-FRAM Model];
+    B --> E[Meta-Dataset];
+    D --> E[Meta-Dataset];
+    E --> F[Meta-Model (LR / RF / LightGBM)];
+    F --> G[Final Prediction];
 
-Preprocessing includes missing value handling, normalization, and categorical encoding.
+## 📊 Results
+| Model                | Accuracy (CV)                        | ROC-AUC |
+| -------------------- | ------------------------------------ | ------- |
+| **RF-UCI**           | 93.3%                                | 0.9676  |
+| **RF-FRAM**          | 85.0%                                | 0.7005  |
+| **Meta-Model**       | \~79.8% (empirical)                  | 0.7357  |
+| **Meta-Theoretical** | \~98–99% (error reduction principle) | —       |
 
-Base Models
+## 🧮 Error Reduction Formula:
+P(both fail)=euci​×efram​≈0.066×0.15≈0.0099 (0.99%)
 
-Train Random Forest on UCI dataset (RF-UCI).
+## 📂 Project Structure
 
-Train Random Forest on Framingham dataset (RF-FRAM).
-
-Evaluate with Cross-Validation for robust metrics.
-
-Meta-Data Generation
-
-For each sample, record:
-
-Probability from RF-UCI (p_uci)
-
-Probability from RF-FRAM (p_fram)
-
-True label (y)
-
-Store as a Meta-Dataset (meta_dataset.csv).
-
-Meta-Model Training
-
-Input: [p_uci, p_fram]
-
-Output: y (true label)
-
-Models tested: Logistic Regression, Random Forest, LightGBM
-
-Deployment
-
-User enters medical parameters via Flask web app with HTML/CSS form.
-
-Both RF-UCI and RF-FRAM make predictions → probabilities.
-
-Meta-model combines probabilities → final risk prediction.
-
-📊 Theoretical Justification
-
-UCI-RF Accuracy (CV): 93.3%, ROC-AUC: 0.9676
-
-FRAM-RF Accuracy (CV): 85.0%, ROC-AUC: 0.7005
-
-Error Reduction Principle:
-
-UCI Error ≈ 6.6%
-
-Framingham Error ≈ 15.0%
-
-If independent:
-
-𝑃
-(
-both fail
-)
-=
-0.066
-×
-0.15
-≈
-0.0099
- 
-(
-0.99
-%
-)
-P(both fail)=0.066×0.15≈0.0099 (0.99%)
-
-Meta-model accuracy ≈ 98–99% (theoretical upper bound).
-
-🚀 Installation
-git clone https://github.com/yourusername/meta-cardiovascular-risk.git
-cd meta-cardiovascular-risk
-pip install -r requirements.txt
-
-📂 Project Structure
 ├── data/
 │   ├── uci_heart.csv
 │   ├── framingham.csv
@@ -103,46 +53,43 @@ pip install -r requirements.txt
 │   ├── rf_fram.pkl
 │   ├── meta_model.pkl
 ├── meta_dataset.csv
-├── app.py              # Flask app
+├── app.py              
 ├── templates/
-│   └── form.html       # HTML form
+│   └── form.html       
 ├── static/
-│   └── style.css       # CSS styling
+│   └── style.css       
 ├── requirements.txt
 └── README.md
 
-🖥️ Usage
+## 🚀 Installation
+git clone https://github.com/yourusername/meta-cardiovascular-risk.git
+cd meta-cardiovascular-risk
+pip install -r requirements.txt
+
+## 🖥️ Usage
 
 Run the Flask app:
-
 python app.py
-
 
 Open in browser:
 
 http://127.0.0.1:5000/
+Enter patient details → Get risk probability + final prediction.
 
+## 🔮 Future Enhancements
+    - Try LightGBM / XGBoost for meta-model
+    - Add SHAP-based explainability
+    - Deploy full-stack with Docker + Cloud
+    - Extend with more clinical datasets
 
-Fill in patient details → Get Risk Probability and Final Prediction.
+## 📸 Screenshots
 
-📈 Results
+(Add screenshots of UI and predictions here in Markdown format, e.g.):
 
-Meta-Model Accuracy: ~79.8% (empirical)
+![Form UI](screenshots/form_ui.png)  
+![Prediction Result](screenshots/result.png)
 
-Meta-Model ROC-AUC: ~0.7357
-
-Theoretical Accuracy: ~98–99% (error reduction principle)
-
-🔮 Future Work
-
-Improve meta-model with LightGBM/XGBoost
-
-Use SHAP for feature explainability
-
-Expand with additional datasets for robustness
-
-Deploy as a full-stack web application
-
-👨‍💻 Authored By - Aryan Chandel
+## 👨‍💻 Authors
+Aryan Chandel – Project Lead 😉
 
 Copyright (c) 2025 Aryan Chandel
