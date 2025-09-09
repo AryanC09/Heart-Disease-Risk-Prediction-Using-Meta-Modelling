@@ -23,7 +23,6 @@ This improves accuracy via the **Principle of Error Reduction**.
 
 ## ⚙️ Workflow
 
-```mermaid
 flowchart LR
     A[📂 UCI Dataset] --> B[🌲 Train RF-UCI Model]
     C[📂 Framingham Dataset] --> D[🌲 Train RF-FRAM Model]
@@ -95,6 +94,7 @@ Enter patient details → Get risk probability + final prediction.
 Aryan Chandel – Project Lead 😉
 
 Copyright (c) 2025 Aryan Chandel
+
 
 
 
