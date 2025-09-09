@@ -29,8 +29,8 @@ flowchart LR
     C[📂 Framingham Dataset] --> D[🌲 Train RF-FRAM Model]
     B --> E[📊 Generate Probabilities]
     D --> E[📊 Generate Probabilities]
-    E --> F[🧩 Create Meta-Dataset (p_uci, p_fram, y)]
-    F --> G[🤖 Train Meta-Model (LR / RF / LightGBM)]
+    E --> F["🧩 Create Meta-Dataset: {p_uci, p_fram, y}"]
+    F --> G["🤖 Train Meta-Model (LR / RF / LightGBM)"]
     G --> H[✅ Final Risk Prediction]
 
 
@@ -95,5 +95,6 @@ Enter patient details → Get risk probability + final prediction.
 Aryan Chandel – Project Lead 😉
 
 Copyright (c) 2025 Aryan Chandel
+
 
 
