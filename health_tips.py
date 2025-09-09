@@ -1,0 +1,30 @@
+# health_tips.py
+# Mapping feature keys to friendly health advice.
+HEALTH_TIPS = {
+    "age": "Age is non-modifiable. Keep regular check-ups and a heart-healthy lifestyle.",
+    "cholesterol": "Work on lowering LDL & total cholesterol — eat less saturated fat, increase fiber, consult a doctor.",
+    "totChol": "Total cholesterol is high — consider diet changes and check with a clinician.",
+    "resting bp s": "Control blood pressure with exercise, reduced salt intake, and medication if prescribed.",
+    "restingBpS": "Resting systolic BP: maintain healthy range via lifestyle & meds when necessary.",
+    "sysBP": "High systolic BP increases risk — monitor and follow your clinician's advice.",
+    "diaBP": "Diastolic BP needs monitoring; consult a doctor if frequently high.",
+    "max heart rate": "Improving cardio fitness through aerobic exercise can raise your max heart rate safely.",
+    "heartRate": "Lower resting heart rate often reflects better fitness — exercise regularly.",
+    "fasting blood sugar": "Elevated fasting glucose increases risk — check for diabetes and manage diet.",
+    "glucose": "High glucose raises cardiac risk — monitor and follow medical guidance.",
+    "currentSmoker": "Quitting smoking yields immediate and long-term heart health benefits.",
+    "cigsPerDay": "Reduce/quit smoking — even cutting down lowers risk.",
+    "BPMeds": "If on blood pressure meds, take as prescribed and have regular BP checks.",
+    "prevalentStroke": "History of stroke increases risk — maintain close follow-ups with your physician.",
+    "prevalentHyp": "History of hypertension increases risk — manage with medication & lifestyle.",
+    "diabetes": "Diabetes is a significant risk factor — manage blood sugar, diet, and activity.",
+    "BMI": "Aim for a healthy BMI with balanced diet and regular exercise.",
+    "chest pain type": "Chest pain can be serious — seek medical evaluation if new or severe.",
+    "chestPainType": "Different chest pain types reflect different risks — consult a physician.",
+    "fastingBloodSugar": "Monitor fasting blood sugar; seek advice for elevated values.",
+    "restingEcg": "Abnormal ECG may need cardiology workup — consult your healthcare provider.",
+    "exerciseAngina": "Exercise-induced angina suggests cardiac stress — consult before resuming intense exercise.",
+    "oldpeak": "Large ST depression (oldpeak) is concerning — clinical reassessment recommended.",
+    "ST slope": "Abnormal ST slope may indicate ischemia — consult cardiology.",
+    "default": "Maintain a balanced diet, exercise regularly, avoid smoking, and get regular health checks."
+}

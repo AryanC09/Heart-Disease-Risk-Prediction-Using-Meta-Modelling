@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Heart Disease Prediction Result</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/resStyle.css') }}"
+    />
+  </head>
+  <body>
+    <!-- NOTE: use class 'result-wrapper' (matches CSS) -->
+    <div class="result-wrapper">
+      <!-- Left: Counterfactual Sliders -->
+      <div class="left-panel">
+        <h2>Counterfactual Adjustments</h2>
+
+        <!-- Sliders (min/max may be missing on server items; JS will normalize) -->
+        <div class="sliders-container">
+          {% for f in top_features_values %}
+          <div class="slider-group">
+            <label class="slider-label" for="feat-{{ loop.index }}">
+              {{ f.name }}: <span class="slider-value">{{ f.value }}</span>
+            </label>
+            <div class="slider-control">
+              <input
+                type="range"
+                id="feat-{{ loop.index }}"
+                class="slider"
+                data-feat="{{ f.name }}"
+                min="{{ f.min if f.min is defined else -100 }}"
+                max="{{ f.max if f.max is defined else 500 }}"
+                step="{{ f.step if f.step is defined else 1 }}"
+                value="{{ f.value }}"
+              />
+              <div class="slider-value" aria-hidden="true">{{ f.value }}</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Right: Final Prediction -->
+      <div class="right-panel">
+        <h2>Final Prediction</h2>
+
+        <div class="result-card">
+          <h1>Risk Level</h1>
+          <div id="final-result" class="result-score">{{ final_cat }}</div>
+          <div class="result-sub">Probability: {{ final_prob }}</div>
+        </div>
+
+        <!-- Suggestions -->
+        <div class="suggestions">
+          <h3>Suggestions</h3>
+          <ul>
+            {% for t in tips %}
+            <li>{{ t.tip if t.tip is defined else t }}</li>
+            {% endfor %}
+          </ul>
+          <div class="who-link">
+            <a href="{{ who_link }}" target="_blank"
+              >WHO — Cardiovascular Diseases</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Provide base inputs and server-provided top features for JS (unchanged contract) -->
+    <script>
+      const BASE_INPUTS = {{ base_inputs|tojson }};
+      const TOP_FEATURES = {{ top_features_values|tojson }};
+    </script>
+
+    <!-- Logic + min/max normalization + clamping -->
+    <script src="{{ url_for('static', filename='js/resScript.js') }}"></script>
+  </body>
+</html>

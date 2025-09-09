@@ -1,0 +1,438 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Heart Disease Risk Prediction</title>
+   <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="app-root container">
+      <header class="topbar">
+        <h1>Heart Disease Risk Prediction</h1>
+        <p class="subtitle">
+          Union of UCI &amp; Framingham features — fill all sections, then
+          Predict Risk.
+        </p>
+      </header>
+
+      <nav class="tabbar" role="tablist" aria-label="Form sections">
+        <button
+          id="tab-btn-personal"
+          class="tab active"
+          data-target="tab-personal"
+          role="tab"
+          aria-selected="true"
+          aria-controls="tab-personal"
+        >
+          Personal Details
+        </button>
+        <button
+          id="tab-btn-lifestyle"
+          class="tab"
+          data-target="tab-lifestyle"
+          role="tab"
+          aria-selected="false"
+          aria-controls="tab-lifestyle"
+        >
+          Lifestyle
+        </button>
+        <button
+          id="tab-btn-body"
+          class="tab"
+          data-target="tab-body"
+          role="tab"
+          aria-selected="false"
+          aria-controls="tab-body"
+        >
+          Body
+        </button>
+        <button
+          id="tab-btn-medical"
+          class="tab"
+          data-target="tab-medical"
+          role="tab"
+          aria-selected="false"
+          aria-controls="tab-medical"
+        >
+          Medical
+        </button>
+      </nav>
+
+      <main class="card">
+        <form
+          id="predictForm"
+          action="{{ url_for('predict') }}"
+          method="POST"
+          novalidate
+        >
+          <!-- Personal Section -->
+          <section
+            id="tab-personal"
+            class="tab-panel active"
+            role="tabpanel"
+            aria-hidden="false"
+            aria-labelledby="tab-btn-personal"
+          >
+            <h2>Personal Information</h2>
+            <div class="grid">
+              <div class="field">
+                <label for="age">Age (Years)</label>
+                <input
+                  id="age"
+                  name="age"
+                  type="number"
+                  min="18"
+                  max="100"
+                  step="1"
+                  required
+                  placeholder="e.g., 45"
+                />
+                <small>Allowed: 18–100</small>
+              </div>
+
+              <div class="field">
+                <label for="sex">Sex</label>
+                <select id="sex" name="sex" required>
+                  <option value="">-- Select --</option>
+                  <option value="1">Male</option>
+                  <option value="0">Female</option>
+                </select>
+                <small>Male, Female</small>
+              </div>
+
+              <div class="field">
+                <label for="education">Education</label>
+                <select id="education" name="education" required>
+                  <option value="">-- Select --</option>
+                  <option value="1">High School</option>
+                  <option value="2">Higher Secondary</option>
+                  <option value="3">Graduate</option>
+                  <option value="4">Postgraduate or Others</option>
+                </select>
+                <small>Framingham scale 1–4</small>
+              </div>
+            </div>
+            <div class="actions">
+              <button
+                type="button"
+                class="next-btn"
+                data-target="tab-lifestyle"
+              >
+                Next →
+              </button>
+            </div>
+          </section>
+
+          <!-- Lifestyle -->
+          <section
+            id="tab-lifestyle"
+            class="tab-panel"
+            role="tabpanel"
+            aria-hidden="true"
+            aria-labelledby="tab-btn-lifestyle"
+          >
+            <h2>Lifestyle & Habits</h2>
+            <div class="grid">
+              <div class="field">
+                <label for="currentSmoker">Current Smoker</label>
+                <select id="currentSmoker" name="currentSmoker" required>
+                  <option value="">-- Select --</option>
+                  <option value="1">Yes</option>
+                  <option value="0">No</option>
+                </select>
+                <small>Yes, No</small>
+              </div>
+
+              <div class="field">
+                <label for="cigsPerDay">Cigarettes Per Day</label>
+                <input
+                  id="cigsPerDay"
+                  name="cigsPerDay"
+                  type="number"
+                  min="0"
+                  max="60"
+                  step="1"
+                  placeholder="e.g., 10"
+                />
+                <small>Allowed: 0–60. Enter 0 if not a smoker.</small>
+              </div>
+
+              <div class="field">
+                <label for="BPMeds">On BP Medication</label>
+                <select id="BPMeds" name="BPMeds" required>
+                  <option value="">-- Select --</option>
+                  <option value="1">Yes</option>
+                  <option value="0">No</option>
+                </select>
+                <small>Are you on blood pressure medication?</small>
+              </div>
+
+              <div class="field">
+                <label for="prevalentStroke">History of Stroke</label>
+                <select id="prevalentStroke" name="prevalentStroke" required>
+                  <option value="">-- Select --</option>
+                  <option value="1">Yes</option>
+                  <option value="0">No</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="prevalentHyp">History of Hypertension</label>
+                <select id="prevalentHyp" name="prevalentHyp" required>
+                  <option value="">-- Select --</option>
+                  <option value="1">Yes</option>
+                  <option value="0">No</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="diabetes">History of Diabetes</label>
+                <select id="diabetes" name="diabetes" required>
+                  <option value="">-- Select --</option>
+                  <option value="1">Yes</option>
+                  <option value="0">No</option>
+                </select>
+              </div>
+            </div>
+            <div class="actions">
+              <button type="button" class="next-btn" data-target="tab-body">
+                Next →
+              </button>
+            </div>
+          </section>
+
+          <!-- Body -->
+          <section
+            id="tab-body"
+            class="tab-panel"
+            role="tabpanel"
+            aria-hidden="true"
+            aria-labelledby="tab-btn-body"
+          >
+            <h2>Body Measurements</h2>
+            <div class="grid">
+              <div class="field">
+                <label for="BMI">BMI</label>
+                <input
+                  id="BMI"
+                  name="BMI"
+                  type="number"
+                  min="10"
+                  max="60"
+                  step="0.1"
+                  required
+                  placeholder="e.g., 24.5"
+                />
+                <small>Allowed: 10.0–60.0</small>
+              </div>
+
+              <div class="field">
+                <label for="heartRate">Resting Heart Rate</label>
+                <input
+                  id="heartRate"
+                  name="heartRate"
+                  type="number"
+                  min="40"
+                  max="200"
+                  step="1"
+                  required
+                  placeholder="e.g., 72"
+                />
+                <small>Allowed: 40–200</small>
+              </div>
+
+              <div class="field">
+                <label for="sysBP">Systolic BP</label>
+                <input
+                  id="sysBP"
+                  name="sysBP"
+                  type="number"
+                  min="80"
+                  max="250"
+                  step="1"
+                  required
+                  placeholder="e.g., 120"
+                />
+                <small>Framingham systolic blood pressure</small>
+              </div>
+
+              <div class="field">
+                <label for="diaBP">Diastolic BP</label>
+                <input
+                  id="diaBP"
+                  name="diaBP"
+                  type="number"
+                  min="50"
+                  max="150"
+                  step="1"
+                  required
+                  placeholder="e.g., 80"
+                />
+                <small>Framingham diastolic blood pressure</small>
+              </div>
+
+              <div class="field">
+                <label for="resting-bp-s">Resting BP (Systolic)</label>
+                <input
+                  id="resting-bp-s"
+                  name="restingBpS"
+                  type="number"
+                  min="80"
+                  max="200"
+                  step="1"
+                  required
+                  placeholder="e.g., 130"
+                />
+                <small>UCI trestbps (resting systolic)</small>
+              </div>
+
+              <div class="field">
+                <label for="max-heart-rate">Max Heart Rate Achieved</label>
+                <input
+                  id="max-heart-rate"
+                  name="maxHeartRate"
+                  type="number"
+                  min="60"
+                  max="220"
+                  step="1"
+                  required
+                  placeholder="e.g., 170"
+                />
+                <small>UCI thalach (max heart rate)</small>
+              </div>
+            </div>
+            <div class="actions">
+              <button type="button" class="next-btn" data-target="tab-medical">
+                Next →
+              </button>
+            </div>
+          </section>
+
+          <!-- Medical -->
+          <section
+            id="tab-medical"
+            class="tab-panel"
+            role="tabpanel"
+            aria-hidden="true"
+            aria-labelledby="tab-btn-medical"
+          >
+            <h2>Medical Information</h2>
+            <div class="grid">
+              <div class="field">
+                <label for="chest-pain-type">Chest Pain Type</label>
+                <select id="chest-pain-type" name="chestPainType" required>
+                  <option value="">-- Select --</option>
+                  <option value="0">Typical Angina</option>
+                  <option value="1">Atypical Angina</option>
+                  <option value="2">Non-anginal Pain</option>
+                  <option value="3">Asymptomatic</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="cholesterol">Cholesterol (UCI)</label>
+                <input
+                  id="cholesterol"
+                  name="cholesterol"
+                  type="number"
+                  min="100"
+                  max="400"
+                  step="1"
+                  required
+                  placeholder="e.g., 210"
+                />
+                <small>UCI serum cholesterol (mg/dl)</small>
+              </div>
+
+              <div class="field">
+                <label for="totChol">Total Cholesterol (Framingham)</label>
+                <input
+                  id="totChol"
+                  name="totChol"
+                  type="number"
+                  min="100"
+                  max="400"
+                  step="1"
+                  required
+                  placeholder="e.g., 208"
+                />
+                <small>Framingham total cholesterol (mg/dl)</small>
+              </div>
+
+              <div class="field">
+                <label for="fasting-blood-sugar"
+                  >Fasting Blood Sugar > 120 mg/dl</label
+                >
+                <select
+                  id="fasting-blood-sugar"
+                  name="fastingBloodSugar"
+                  required
+                >
+                  <option value="">-- Select --</option>
+                  <option value="1">Yes</option>
+                  <option value="0">No</option>
+                </select>
+                <small>UCI fbs: 0/1</small>
+              </div>
+
+              <div class="field">
+                <label for="restecg">Resting ECG</label>
+                <select id="restecg" name="restingEcg" required>
+                  <option value="">-- Select --</option>
+                  <option value="0">Normal</option>
+                  <option value="1">ST-T Abnormality</option>
+                  <option value="2">LVH</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="exercise-angina">Exercise-Induced Angina</label>
+                <select id="exercise-angina" name="exerciseAngina" required>
+                  <option value="">-- Select --</option>
+                  <option value="1">Yes</option>
+                  <option value="0">No</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="oldpeak">Oldpeak (ST Depression)</label>
+                <input
+                  id="oldpeak"
+                  name="oldpeak"
+                  type="number"
+                  min="0"
+                  max="6"
+                  step="0.1"
+                  required
+                  placeholder="e.g., 1.4"
+                />
+                <small>ST depression induced by exercise</small>
+              </div>
+
+              <div class="field">
+                <label for="st-slope">ST Slope</label>
+                <select id="st-slope" name="stSlope" required>
+                  <option value="">-- Select --</option>
+                  <option value="0">Upsloping</option>
+                  <option value="1">Flat</option>
+                  <option value="2">Downsloping</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button type="submit" class="predict-btn">Predict Risk</button>
+            </div>
+          </section>
+        </form>
+      </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  </body>
+</html>
